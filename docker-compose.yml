@@ -1,0 +1,29 @@
+version: '3.2'
+services:
+  wordcount:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: word-count-listener
+    depends_on:
+      - zookeeper
+      - kafka
+    links:
+      - zookeeper
+      - kafka
+  zookeeper:
+    image: zookeeper:3.4.10
+    container_name: word-count-zookeeper
+    ports:
+      - "2181:2181"
+
+  kafka:
+    image: debezium/kafka:0.7.1
+    container_name: word-count-kafka
+    environment:
+      ZOOKEEPER_CONNECT: zookeeper:2181
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka:9092
+    ports:
+      - "9092:9092"
+    links:
+      - "zookeeper:zookeeper"
