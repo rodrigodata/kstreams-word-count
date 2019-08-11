@@ -52,7 +52,7 @@
                     </descriptorRefs>
                     <archive>
                         <manifest>
-                            <addClassPath>true</addClassPath>
+                            <addClasspath>true</addClasspath>
                             <mainClass>com.github.rodrigodata.WordCount</mainClass>
                         </manifest>
                     </archive>
